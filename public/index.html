@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
+  <link rel="stylesheet" href="index.css">
+  <script src="ROM.js"></script>
+  <script src="helper.js"></script>
+  <script src="index.js"></script>
+  <title>SRM Sim</title>
+</head>
+
+<body onload="on_page_load()">
+  <div class="grid-container">
+    <div class="grid-item header" style="grid-column-start: 1; grid-column-end: 5; grid-row-start: 1; grid-row-end: 2;">
+      <h1>SRM1 Simulator</h1>
+    </div>
+    <div class="grid-item" style="grid-column-start: 1; grid-column-end: 5; grid-row-start: 2; grid-row-end: 3;">
+     <button style="float: left;" class="button" onclick="step()">Step</button>
+     <button style="float: left;" id="run_button" class="button" onclick="run()">Run</button>
+     <button style="float: left;" class="button" onclick="stop()">Stop</button>
+     <button style="float: right;" id="clear_rom_button" class="button" onclick="clear_rom_prime()">Clear ROM</button>
+     <button style="float: right;" class="button" onclick="reset()">Reset</button>
+    </div>
+    <div class="grid-item" style="grid-column-start: 3; grid-column-end: 4; grid-row-start: 3; grid-row-end: 4;">
+      <h2>Quick Reference</h2>
+      <ul style="text-align: left;">
+        <li>6-bit words</li>
+        <li>3-bit opcode</li>
+        <li>8 RAM words (general-purpose registers)</li>
+        <ul>
+          <li>Address x0 is always zero</li>
+          <li>Address x1 is called register A</li>
+          <li>Address x2 is called register B</li>
+          <li>Address x3 is the address register (Addr)</li>
+          <li>Address x6 is output register 1 (OUT1)</li>
+          <li>Address x7 is output register 2 (OUT2)</li>
+        </ul>
+        <li>56 ROM words (program input)</li>
+        <ul>
+          <li>ROM can be programming by setting (clicking on) individual bits</li>
+          <li>ROM can store both instructions and constant data</li>
+          <li>Address x62 is input 1 (IN1)</li>
+          <li>Address x63 is input 2 (IN2)</li>
+          <li>In hardware, these can be connected via jumper wires</li>
+          <li>In the simulator, the inputs can be set as functions of the two outputs (OUT1 and OUT2)</li>
+        </ul>
+        <li>4 special-purpose registers</li>
+        <ul>
+          <li>MAR (Memory Address Register)</li>
+          <li>MDR (Memory Data Register)</li>
+          <li>Ir (Instruction Register)</li>
+          <li>PC (Program Counter)</li>
+        </ul>
+        <li>PC is the <strong>only</strong> register with a set starting value (8)</li>
+        <ul>
+          <li>All other registers have random initial values</li>
+        </ul>
+        <li>All RAM words have random initial values, except for address zero which is always 0</li>
+      </ul>
+      <table>
+        <tr>
+          <th colspan="3" style="background-color: orange">argument</th>
+          <th colspan="3" style="background-color: dodgerblue">opcode</th>
+        </tr>
+        <tr>
+          <td style="background-color: orange">Bit 5</td>
+          <td style="background-color: orange">Bit 4</td>
+          <td style="background-color: orange">Bit 3</td>
+          <td style="background-color: dodgerblue">Bit 2</td>
+          <td style="background-color: dodgerblue">Bit 1</td>
+          <td style="background-color: dodgerblue">Bit 0</td>
+        </tr>
+      </table>
+      <h3>Instruction List</h3>
+      <table>
+        <tr>
+          <th>Opcode</th>
+          <th>Instruction</th>
+        </tr>
+        <tr>
+          <td>000</td>
+          <td>ADD (MEM[arg] = A + B)</td>
+        </tr>
+        <tr>
+          <td>001</td>
+          <td>BEZ (PC = Addr if MEM[arg] == 0)</td>
+        </tr>
+        <tr>
+          <td>010</td>
+          <td>BGE (PC = Addr if MEM[arg] >= 32)</td>
+        </tr>
+        <tr>
+          <td>011</td>
+          <td>MV (MEM[arg] = MEM[Addr])</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>SOA (A = (A << 3) | arg)</td>
+        </tr>
+        <tr>
+          <td>101</td>
+          <td>SOD (Addr = (Addr << 3) | arg)</td>
+        </tr>
+        <tr>
+          <td>110</td>
+          <td>LAI (A = arg)</td>
+        </tr>
+        <tr>
+          <td>111</td>
+          <td>LDI (Addr = arg)</td>
+        </tr>
+      </table>
+    </div>
+    <div class="grid-item" style="grid-column-start: 4; grid-column-end: 5; grid-row-start: 3; grid-row-end: 4;">
+      <h2>Examples: </h2>
+      <a target="_blank" href="https://srm1-simulator.web.app/#1617230640177327134723174501000000000000000000000000000000000000000000000000000000000000000000000000000000000000">Fibonacci</a> 
+    </div>
+    <div class="grid-item" style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 3; grid-row-end: 4;">
+      <table id="register_display" class="regs">
+        <tr>
+          <th colspan="7">Registers</th>
+        </tr>
+        <tr>
+          <th>Label</th>
+          <th>Bit 5</th>
+          <th>Bit 4</th>
+          <th>Bit 3</th>
+          <th>Bit 2</th>
+          <th>Bit 1</th>
+          <th>Bit 0</th>
+        </tr>
+      </table>
+
+      <table id="ram_display" class="RAM">
+        <tr>
+          <th colspan="7">RAM</th>
+        </tr>
+        <tr>
+          <th>Addr</th>
+          <th>Bit 5</th>
+          <th>Bit 4</th>
+          <th>Bit 3</th>
+          <th>Bit 2</th>
+          <th>Bit 1</th>
+          <th>Bit 0</th>
+        </tr>
+      </table>
+
+      <table id="out_display" class="OUT">
+        <tr>
+          <th colspan="2">Outputs</th>
+        </tr>
+        <tr>
+          <th>Output</th>
+          <th>Value (decimal)</th>
+        </tr>
+        <tr>
+          <td>OUT1 (x6)</td>
+          <td id="out1_display"></td>
+        </tr>
+        <tr>
+          <td>OUT2 (x7)</td>
+          <td id="out2_display"></td>
+        </tr>
+      </table>
+
+      <table id="in_display" class="IN">
+
+      </table>
+
+      <br><br>
+      <div>
+        
+      </div>
+    </div>
+
+    <div class="grid-item" style="grid-column-start: 1; grid-column-end: 2; grid-row-start: 3; grid-row-end: 4;">
+      <div class="grid-container">
+        <div class="grid-item-inner" style="grid-column-start: 1; grid-column-end: 2; grid-row-start: 1; grid-row-end: 2;">
+          <table id="rom_display" class="ROM">
+            <tr>
+              <th colspan="7">ROM</th>
+            </tr>
+            <tr>
+              <th>Addr</th>
+              <th>Bit 5</th>
+              <th>Bit 4</th>
+              <th>Bit 3</th>
+              <th>Bit 2</th>
+              <th>Bit 1</th>
+              <th>Bit 0</th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="grid-item-inner" style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 1; grid-row-end: 2;">
+          <table id="rom_display_2" class="ROM">
+            <tr>
+              <th colspan="7">ROM</th>
+            </tr>
+            <tr>
+              <th>Addr</th>
+              <th>Bit 5</th>
+              <th>Bit 4</th>
+              <th>Bit 3</th>
+              <th>Bit 2</th>
+              <th>Bit 1</th>
+              <th>Bit 0</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="grid-item footer" style="grid-column-start: 1; grid-column-end: 5; grid-row-start: 4; grid-row-end: 5;">
+      <div style="float: right">v0.1</div>
+    </div>
+  </div>
+</body>
+
+</html>
