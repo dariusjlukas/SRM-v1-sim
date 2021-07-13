@@ -253,7 +253,7 @@ function on_page_load(){
                 ROM[this.w][5-this.bit] = ROM[this.w][5-this.bit] == 0 ? 1 : 0;
                 this.innerHTML = ROM[this.w][5-this.bit];
                 update_hash();
-                highlight_memory();
+                update_display();
             }
             let t = document.createTextNode(ROM[w][5-b]);
             d.appendChild(t);

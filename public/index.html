@@ -39,17 +39,21 @@
           <li>Address x1 is called register A</li>
           <li>Address x2 is called register B</li>
           <li>Address x3 is the address register (Addr)</li>
-          <li>Address x6 is output register 1 (OUT1)</li>
-          <li>Address x7 is output register 2 (OUT2)</li>
+          <li>Address x4 is output register 1 (OUT1)</li>
+          <li>Address x5 is output register 2 (OUT2)</li>
+          <li>Address x6 is output register 3 (OUT3)</li>
+          <li>Address x7 is output register 4 (OUT4)</li>
         </ul>
         <li>56 ROM words (program input)</li>
         <ul>
           <li>ROM can be programming by setting (clicking on) individual bits</li>
           <li>ROM can store both instructions and constant data</li>
-          <li>Address x62 is input 1 (IN1)</li>
-          <li>Address x63 is input 2 (IN2)</li>
+          <li>Address x60 is input 1 (IN1)</li>
+          <li>Address x61 is input 2 (IN2)</li>
+          <li>Address x62 is input 3 (IN3)</li>
+          <li>Address x63 is input 4 (IN4)</li>
           <li>In hardware, these can be connected via jumper wires</li>
-          <li>In the simulator, the inputs can be set as functions of the two outputs (OUT1 and OUT2)</li>
+          <li>In the simulator, their values are simply displayed</li>
         </ul>
         <li>4 special-purpose registers</li>
         <ul>
@@ -123,7 +127,7 @@
       <a target="_blank" href="https://srm1-simulator.web.app/#1617230640177327134723174501000000000000000000000000000000000000000000000000000000000000000000000000000000000000">Fibonacci</a> 
     </div>
     <div class="grid-item" style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 3; grid-row-end: 4;">
-      <table id="register_display" class="regs">
+      <table id="register_display" class="bit_display">
         <tr>
           <th colspan="7">Registers</th>
         </tr>
@@ -138,7 +142,7 @@
         </tr>
       </table>
 
-      <table id="ram_display" class="RAM">
+      <table id="ram_display" class="bit_display">
         <tr>
           <th colspan="7">RAM</th>
         </tr>
@@ -153,7 +157,7 @@
         </tr>
       </table>
 
-      <table id="out_display" class="OUT">
+      <table id="out_display" class="bit_display">
         <tr>
           <th colspan="2">Outputs</th>
         </tr>
@@ -162,17 +166,67 @@
           <th>Value (decimal)</th>
         </tr>
         <tr>
-          <td>OUT1 (x6)</td>
+          <td>OUT1 (x4)</td>
           <td id="out1_display"></td>
         </tr>
         <tr>
-          <td>OUT2 (x7)</td>
+          <td>OUT2 (x5)</td>
           <td id="out2_display"></td>
+        </tr>
+        <tr>
+          <td>OUT3 (x6)</td>
+          <td id="out3_display"></td>
+        </tr>
+        <tr>
+          <td>OUT4 (x7)</td>
+          <td id="out4_display"></td>
         </tr>
       </table>
 
-      <table id="in_display" class="IN">
-
+      <table id="in_display" class="bit_display">
+        <tr>
+          <th colspan="7">Inputs</th>
+        </tr>
+        <tr>
+          <th>Input</th>
+          <th colspan="6">Value</th>
+        </tr>
+        <tr>
+          <td>IN1 (x60)</td>
+          <td id="in1_bit5">x</td>
+          <td id="in1_bit4">x</td>
+          <td id="in1_bit3">x</td>
+          <td id="in1_bit2">x</td>
+          <td id="in1_bit1">x</td>
+          <td id="in1_bit0">x</td>
+        </tr>
+        <tr>
+          <td>IN2 (x61)</td>
+          <td id="in2_bit5">x</td>
+          <td id="in2_bit4">x</td>
+          <td id="in2_bit3">x</td>
+          <td id="in2_bit2">x</td>
+          <td id="in2_bit1">x</td>
+          <td id="in2_bit0">x</td>
+        </tr>
+        <tr>
+          <td>IN3 (x62)</td>
+          <td id="in3_bit5">x</td>
+          <td id="in3_bit4">x</td>
+          <td id="in3_bit3">x</td>
+          <td id="in3_bit2">x</td>
+          <td id="in3_bit1">x</td>
+          <td id="in3_bit0">x</td>
+        </tr>
+        <tr>
+          <td>IN4 (x63)</td>
+          <td id="in4_bit5">x</td>
+          <td id="in4_bit4">x</td>
+          <td id="in4_bit3">x</td>
+          <td id="in4_bit2">x</td>
+          <td id="in4_bit1">x</td>
+          <td id="in4_bit0">x</td>
+        </tr>
       </table>
 
       <br><br>

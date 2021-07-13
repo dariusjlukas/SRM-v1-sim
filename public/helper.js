@@ -154,7 +154,7 @@ function load_from_hash() {
 function update_display() {
     update_reg_display();
     update_ram_display();
-    update_output_display();
+    update_io_display();
     update_rom_display();
     highlight_memory();
 }
@@ -239,9 +239,20 @@ update_ram_display = function () {
     }
 }
 
-update_output_display = function() {
-    document.getElementById("out1_display").innerHTML = six_bit_to_int(RAM[6]);
-    document.getElementById("out2_display").innerHTML = six_bit_to_int(RAM[7]);
+update_io_display = function() {
+    //update output display
+    document.getElementById("out1_display").innerHTML = six_bit_to_int(RAM[4]);
+    document.getElementById("out2_display").innerHTML = six_bit_to_int(RAM[5]);
+    document.getElementById("out3_display").innerHTML = six_bit_to_int(RAM[6]);
+    document.getElementById("out4_display").innerHTML = six_bit_to_int(RAM[7]);
+
+    //update input display
+    for (i = 1; i < 5; i++){
+        for(b = 5; b >= 0; b--) {
+            let target_id = "in" + i + "_bit" + b;
+            document.getElementById(target_id).innerHTML = ROM[i+51][5-b];
+        }
+    }
 }
 
 update_rom_display = function () {

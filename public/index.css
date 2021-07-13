@@ -93,15 +93,7 @@ th{
     width: 20000px;
 }
 
-.regs{
-    background-color: lightskyblue;
-}
-
-.RAM{
-    background-color: lightskyblue;
-}
-
-.OUT{
+.bit_display{
     background-color: lightskyblue;
 }
 
