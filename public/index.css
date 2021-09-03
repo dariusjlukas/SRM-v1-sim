@@ -14,7 +14,7 @@ body{
 
 .header{
     background-color: var(--blue1);
-    color: orange;
+    color: ghostwhite;
     text-align: center;
 }
 
@@ -26,7 +26,7 @@ body{
 .button {
     background-color: orange;
     color: var(--black);
-    border: none;
+    border: 2px solid orange;
     padding: 15px 32px;
     margin: 0.1em;
     text-align: center;
@@ -40,6 +40,17 @@ body{
 .button:hover {
     background-color: darkorange;
     cursor: pointer;
+}
+
+.indicator {
+    border: 2px solid lightskyblue;
+    border-radius: 2px;
+    padding: 15px 32px;
+    margin: 0.1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 .grid-container{

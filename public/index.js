@@ -40,14 +40,14 @@ function step(){
     //Decode instruction and execute
     switch(six_bit_to_int([0,0,0].concat(IR.slice(3,7)))) {
         case 0:
-            console.log("ADD");
+            //console.log("ADD");
             MAR = (get_arg(IR)).map((x) => x);
             MDR = (add_six_bit(RAM[1], RAM[2])).map((x) => x);
             //WRITE
             write();
         break;
         case 1:
-            console.log("BEZ");
+            //console.log("BEZ");
             MAR = (get_arg(IR)).map((x) => x);
             //READ
             MDR = (RAM[six_bit_to_int(MAR)]).map((x) => x);
@@ -56,7 +56,7 @@ function step(){
             }
         break;
         case 2:
-            console.log("BGE");
+            //console.log("BGE");
             MAR = (get_arg(IR)).map((x) => x);
             //READ
             MDR = (RAM[six_bit_to_int(MAR)]).map((x) => x);
@@ -65,7 +65,7 @@ function step(){
             }
         break;
         case 3:
-            console.log("MV");
+            //console.log("MV");
             MAR = (RAM[3]).map((x) => x);
             //READ
             if(six_bit_to_int(MAR) < 8){
@@ -80,28 +80,28 @@ function step(){
             write();
         break;
         case 4:
-            console.log("SOA");
+            //console.log("SOA");
             MAR = [0,0,0,0,0,1].map((x) => x);
             MDR = (or_six_bit(shift_left_six_bit(RAM[1]), get_arg(IR))).map((x) => x);
             //WRITE
             write();
         break;
         case 5:
-            console.log("SOD");
+            //console.log("SOD");
             MAR = [0,0,0,0,1,1].map((x) => x);
             MDR = (or_six_bit(shift_left_six_bit(RAM[3]), get_arg(IR))).map((x) => x);
             //WRITE
             write();
         break;
         case 6:
-            console.log("LAI");
+            //console.log("LAI");
             MAR = [0,0,0,0,0,1].map((x) => x);
             MDR = (get_arg(IR)).map((x) => x);
             //WRITE
             write();
         break;
         case 7:
-            console.log("LDI");
+            //console.log("LDI");
             MAR = [0,0,0,0,1,1].map((x) => x);
             MDR = (get_arg(IR)).map((x) => x);
             //WRITE

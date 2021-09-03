@@ -157,6 +157,7 @@ function update_display() {
     update_io_display();
     update_rom_display();
     highlight_memory();
+    document.getElementById("clock_indicator").innerHTML = speed;
 }
 
 function get_arg(instr) {
