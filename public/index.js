@@ -212,7 +212,7 @@ function on_page_load(){
 
         {
             let d = document.createElement("TH");
-            let t = document.createTextNode("x" + mem_addr);
+            let t = document.createTextNode(mem_addr);
             d.appendChild(t);
             r.appendChild(d);
         }
@@ -240,7 +240,7 @@ function on_page_load(){
 
         {
             let d = document.createElement("TH");
-            let t = document.createTextNode("x" + mem_addr);
+            let t = document.createTextNode(mem_addr);
             d.appendChild(t);
             r.appendChild(d);
         }

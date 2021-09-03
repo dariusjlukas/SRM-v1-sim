@@ -35,23 +35,23 @@
         <li>3-bit opcode</li>
         <li>8 RAM words (general-purpose registers)</li>
         <ul>
-          <li>Address x0 is always zero</li>
-          <li>Address x1 is called register A</li>
-          <li>Address x2 is called register B</li>
-          <li>Address x3 is the address register (Addr)</li>
-          <li>Address x4 is output register 1 (OUT1)</li>
-          <li>Address x5 is output register 2 (OUT2)</li>
-          <li>Address x6 is output register 3 (OUT3)</li>
-          <li>Address x7 is output register 4 (OUT4)</li>
+          <li>Address 0 is always zero</li>
+          <li>Address 1 is called register A</li>
+          <li>Address 2 is called register B</li>
+          <li>Address 3 is the address register (Addr)</li>
+          <li>Address 4 is output register 1 (OUT1)</li>
+          <li>Address 5 is output register 2 (OUT2)</li>
+          <li>Address 6 is output register 3 (OUT3)</li>
+          <li>Address 7 is output register 4 (OUT4)</li>
         </ul>
         <li>56 ROM words (program input)</li>
         <ul>
           <li>ROM can be programming by setting (clicking on) individual bits</li>
           <li>ROM can store both instructions and constant data</li>
-          <li>Address x60 is input 1 (IN1)</li>
-          <li>Address x61 is input 2 (IN2)</li>
-          <li>Address x62 is input 3 (IN3)</li>
-          <li>Address x63 is input 4 (IN4)</li>
+          <li>Address 60 is input 1 (IN1)</li>
+          <li>Address 61 is input 2 (IN2)</li>
+          <li>Address 62 is input 3 (IN3)</li>
+          <li>Address 63 is input 4 (IN4)</li>
           <li>In hardware, these can be connected via jumper wires</li>
           <li>In the simulator, their values are simply displayed</li>
         </ul>
@@ -166,19 +166,19 @@
           <th>Value (decimal)</th>
         </tr>
         <tr>
-          <td>OUT1 (x4)</td>
+          <td>OUT1 (4)</td>
           <td id="out1_display"></td>
         </tr>
         <tr>
-          <td>OUT2 (x5)</td>
+          <td>OUT2 (5)</td>
           <td id="out2_display"></td>
         </tr>
         <tr>
-          <td>OUT3 (x6)</td>
+          <td>OUT3 (6)</td>
           <td id="out3_display"></td>
         </tr>
         <tr>
-          <td>OUT4 (x7)</td>
+          <td>OUT4 (7)</td>
           <td id="out4_display"></td>
         </tr>
       </table>
@@ -192,7 +192,7 @@
           <th colspan="6">Value</th>
         </tr>
         <tr>
-          <td>IN1 (x60)</td>
+          <td>IN1 (60)</td>
           <td id="in1_bit5">x</td>
           <td id="in1_bit4">x</td>
           <td id="in1_bit3">x</td>
@@ -201,7 +201,7 @@
           <td id="in1_bit0">x</td>
         </tr>
         <tr>
-          <td>IN2 (x61)</td>
+          <td>IN2 (61)</td>
           <td id="in2_bit5">x</td>
           <td id="in2_bit4">x</td>
           <td id="in2_bit3">x</td>
@@ -210,7 +210,7 @@
           <td id="in2_bit0">x</td>
         </tr>
         <tr>
-          <td>IN3 (x62)</td>
+          <td>IN3 (62)</td>
           <td id="in3_bit5">x</td>
           <td id="in3_bit4">x</td>
           <td id="in3_bit3">x</td>
@@ -219,7 +219,7 @@
           <td id="in3_bit0">x</td>
         </tr>
         <tr>
-          <td>IN4 (x63)</td>
+          <td>IN4 (63)</td>
           <td id="in4_bit5">x</td>
           <td id="in4_bit4">x</td>
           <td id="in4_bit3">x</td>
